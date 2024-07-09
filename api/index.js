@@ -6,6 +6,7 @@ import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 dotenv.config();
 
 mongoose
@@ -21,10 +22,22 @@ mongoose
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.use(cookieParser());
+var allowlist = ["*"]
+var corsOptionsDelegate = function (req, callback) {
+    var corsOptions;
+    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+}
 
+// app.use(require('cors')(corsOptionsDelegate));
 app.listen(3000, () => {
   console.log('Server is running on port 3000!');
 });

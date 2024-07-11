@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cookieParser());
-var allowlist = ["*"]
+var allowlist = ["https://real-estate15-1.onrender.com", "https://firebasestorage.googleapis.com/v0/b/realestate-7b68.appspot.com"]
 var corsOptionsDelegate = function (req, callback) {
     var corsOptions;
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
